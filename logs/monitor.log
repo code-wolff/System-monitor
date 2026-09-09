@@ -25,3 +25,23 @@
 [2026-07-27 09:32:11] OK: Service nginx is running
 [2026-07-27 09:32:11] OK: Service cron is running
 [2026-07-27 09:32:11] === Health Check Complete ===
+[2026-09-09 11:04:03] === Health Check Started ===
+[2026-09-09 11:04:03] Checking disk usage...
+[2026-09-09 11:04:03] OK: Disk usage is 1%
+[2026-09-09 11:04:03] Checking memory usage...
+[2026-09-09 11:04:03] OK: Memory usage is 8%
+[2026-09-09 11:04:03] Checking services...
+[2026-09-09 11:04:03] CRITICAL: Service nginx is NOT running!
+[2026-09-09 11:04:03] OK: Service cron is running
+[2026-09-09 11:04:03] === Health Check Complete ===
+[2026-09-09 11:10:09] === Health Check Started ===
+[2026-09-09 11:10:09] Checking disk usage...
+[2026-09-09 11:10:09] OK: Disk usage is 1%
+[2026-09-09 11:10:09] Checking memory usage...
+[2026-09-09 11:10:09] OK: Memory usage is 8%
+[2026-09-09 11:10:09] Checking services...
+[2026-09-09 11:10:09] OK: Service nginx is running
+[2026-09-09 11:10:09] OK: Service cron is running
+[2026-09-09 11:10:09] Checking CPU usage...
+[2026-09-09 11:10:09] OK: CPU usage is 0%
+[2026-09-09 11:10:09] === Health Check Complete ===

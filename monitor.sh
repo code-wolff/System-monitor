@@ -59,6 +59,25 @@ check_memory() {
     fi
 }
 
+
+check_cpu() {
+    log "Checking CPU usage..."
+    CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | awk '{print $2}' | cut -d'%' -f1 | cut -d',' -f1)
+    CPU_USAGE=${CPU_USAGE%.*}
+
+    if [ -z "$CPU_USAGE" ]; then
+        CPU_USAGE=0
+    fi
+
+    if [ "$CPU_USAGE" -ge "$CPU_THRESHOLD" ]; then
+        alert "CRITICAL" "CPU usage is ${CPU_USAGE}% (threshold: ${CPU_THRESHOLD}%)"
+    elif [ "$CPU_USAGE" -ge $((CPU_THRESHOLD - 10)) ]; then
+        alert "WARNING" "CPU usage is ${CPU_USAGE}% (threshold: ${CPU_THRESHOLD}%)"
+    else
+        alert "OK" "CPU usage is ${CPU_USAGE}%"
+    fi
+}
+
 check_services() {
     log "Checking services..."
     for SERVICE in "${SERVICES[@]}"
@@ -79,12 +98,21 @@ check_services() {
 main() {
     echo ""
     echo "=========================================="
-    echo "   System Health Monitor v1.0"
+    echo "   System Health Monitor v2.0"
     echo "   $(date '+%Y-%m-%d %H:%M:%S')"
     echo "   Host: $(hostname)"
     echo "=========================================="
     echo ""
-
+    echo "=========================================="
+    echo "   SUMMARY REPORT"
+    echo "=========================================="
+    echo "   Host     : $(hostname)"
+    echo "   Date     : $(date '+%Y-%m-%d %H:%M:%S')"
+    echo "   Disk     : $(df -h / | awk 'NR==2{print $5}') used"
+    echo "   Memory   : $(free -h | awk 'NR==2{print $3}') used"
+    echo "   Uptime   : $(uptime -p)"
+    echo "   Processes: $(ps aux | wc -l)"
+    echo "=========================================="
     log "=== Health Check Started ==="
 
     check_disk
@@ -92,6 +120,8 @@ main() {
     check_memory
     echo ""
     check_services
+    echo ""
+    check_cpu
     echo ""
 
     log "=== Health Check Complete ==="
