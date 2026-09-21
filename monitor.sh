@@ -123,6 +123,7 @@ main() {
     echo ""
     check_cpu
     echo ""
+    check_network
 
     log "=== Health Check Complete ==="
     echo ""
@@ -131,4 +132,13 @@ main() {
 }
 
 # Run main
+# Network Check Function
+check_network() {
+    echo "=== Network Check ==="
+    if ping -c1 -W2 8.8.8.8 &>/dev/null; then
+        echo "Internet: UP ✅"
+    else
+        echo "Internet: DOWN ❌"
+    fi
+}
 main
