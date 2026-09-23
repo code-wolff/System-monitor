@@ -143,3 +143,4 @@ check_network() {
 }
 main
 # Conflict resolve 
+# TODO: Add email alert for disk usage
